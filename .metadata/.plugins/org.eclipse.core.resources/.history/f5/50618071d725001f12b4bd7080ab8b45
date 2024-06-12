@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard do Médico</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+</head>
+<body>
+    <h1>Dashboard do Médico</h1>
+
+    <h2>Consultas</h2>
+    <a href="/consultas/new"><button>Criar Nova Consulta</button></a>
+    <table>
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>Paciente</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="consulta : ${consultas}">
+            <td th:text="${#dates.format(consulta.data, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${consulta.paciente.nome}"></td>
+            <td>
+                <a th:href="@{/consultas/edit/{id}(id=${consulta.id})}">Editar</a>
+                <a th:href="@{/consultas/delete/{id}(id=${consulta.id})}">Deletar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Pacientes</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="paciente : ${pacientes}">
+            <td th:text="${paciente.nome}"></td>
+            <td th:text="${paciente.idade}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

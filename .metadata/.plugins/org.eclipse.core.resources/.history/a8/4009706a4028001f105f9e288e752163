@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Usuários</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Gerenciar Usuários</h1>
+        <div class="mt-4">
+            <a th:href="@{/users/new}" class="btn btn-primary">Criar Usuário</a>
+            <a th:href="@{/users/list}" class="btn btn-secondary">Listar Usuários</a>
+            <a th:href="@{/users/edit}" class="btn btn-warning">Editar Usuário</a>
+            <a th:href="@{/users/delete}" class="btn btn-danger">Excluir Usuário</a>
+        </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

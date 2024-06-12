@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Principal</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .welcome-text {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container center-content">
+        <h1 class="welcome-text">Bem-vindo</h1>
+        <div>
+            <a th:href="@{/users/new}" class="btn btn-primary">Cadastrar Usuário</a>
+        </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

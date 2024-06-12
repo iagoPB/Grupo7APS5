@@ -1,0 +1,67 @@
+import com.grupo7.service.*;
+import org.springframework.stereotype.Service;
+
+import com.grupo7.model.ControladorEstoque;
+import com.grupo7.model.Medico;
+import com.grupo7.model.Paciente;
+import com.grupo7.model.User;
+import com.grupo7.model.enums.Permissao;
+import com.grupo7.repository.ControladorEstoqueRepository;
+import com.grupo7.repository.MedicoRepository;
+import com.grupo7.repository.PacienteRepository;
+import com.grupo7.repository.UserRepository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private MedicoRepository medicoRepository;
+    @Autowired
+    private PacienteRepository pacienteRepository;
+    @Autowired
+    private ControladorEstoqueRepository controladorEstoqueRepository;
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User save(User user) {
+        user = userRepository.save(user);
+        assignRole(user);
+        return user;
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    private void assignRole(User user) {
+        Set<Permissao> permissoes = user.getPermissoes();
+        if (permissoes.contains(Permissao.GERENCIAR_PRESCRICOES) &&
+            permissoes.contains(Permissao.GERENCIAR_CONSULTAS) &&
+            permissoes.contains(Permissao.GERENCIAR_EXAMES)) {
+            Medico medico = new Medico();
+            medico.setUser(user);
+            medicoRepository.save(medico);
+        } else if (permissoes.contains(Permissao.VISUALIZAR_PRESCRICOES) &&
+                   permissoes.contains(Permissao.VISUALIZAR_CONSULTAS) &&
+                   permissoes.contains(Permissao.VISUALIZAR_EXAMES)) {
+            Paciente paciente = new Paciente();
+            paciente.setUser(user);
+            pacienteRepository.save(paciente);
+        } else if (permissoes.contains(Permissao.GERENCIAR_REMEDIOS)) {
+            ControladorEstoque controladorEstoque = new ControladorEstoque();
+            controladorEstoque.setUser(user);
+            controladorEstoqueRepository.save(controladorEstoque);
+        }
+    }
+}

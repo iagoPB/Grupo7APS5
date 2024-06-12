@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Consulta</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h1>Cadastro de Consulta</h1>
+    <form th:action="@{/consultas}" th:object="${consulta}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label for="data">Data:</label>
+            <input type="date" id="data" th:field="*{data}" />
+        </div>
+        <div>
+            <label for="medico">Médico:</label>
+            <select id="medico" th:field="*{medico}">
+                <option th:each="medico : ${medicos}" th:value="${medico.id}" th:text="${medico.nome}">Médico</option>
+            </select>
+        </div>
+        <div>
+            <label for="paciente">Paciente:</label>
+            <select id="paciente" th:field="*{paciente}">
+                <option th:each="paciente : ${pacientes}" th:value="${paciente.id}" th:text="${paciente.nome}">Paciente</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
+</body>
+</html>

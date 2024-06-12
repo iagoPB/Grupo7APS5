@@ -1,0 +1,5 @@
+package com.grupo7.repository;
+
+public class LoteRepository {
+
+}

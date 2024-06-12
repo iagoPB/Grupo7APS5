@@ -1,0 +1,4 @@
+package com.grupo7.repository;
+
+public interface RemedioItemRepository extends JpaRepository<RemedioItem, Long> {
+}

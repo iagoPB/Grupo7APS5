@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Paciente</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        .underline-green {
+            border-bottom: 3px solid green;
+            display: inline-block;
+        }
+        .greeting {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <h1 class="underline-green">Dashboard do Paciente</h1>
+            <span class="greeting">Bem-vindo!</span>
+        </div>
+        <div class="mt-4">
+            <h2>Consultas de <span th:text="${paciente.nome}">Paciente</span></h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Médico</th>
+                        <th>Paciente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="consulta : ${consultas}">
+                        <td th:text="${consulta.id}">ID</td>
+                        <td th:text="${#dates.format(consulta.data, 'yyyy-MM-dd')}">Data</td>
+                        <td th:text="${consulta.medico.nome}">Médico</td>
+                        <td th:text="${consulta.paciente.nome}">Paciente</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

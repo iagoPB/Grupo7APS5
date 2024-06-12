@@ -1,0 +1,27 @@
+package com.grupo7.hospital.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+@Controller
+@RequestMapping("/login")
+public class LoginController {
+
+    @GetMapping
+    public String login(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !(auth.getPrincipal() instanceof String)) {
+            String username = auth.getName();
+            if ("admin@admin.com".equals(username)) {
+                return "redirect:/users/new";
+            } else {
+                return "redirect:/home";
+            }
+        }
+        return "login";
+    }
+}

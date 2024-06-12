@@ -1,0 +1,5 @@
+package com.grupo7.hospital.model;
+
+public class DateFormatter {
+
+}

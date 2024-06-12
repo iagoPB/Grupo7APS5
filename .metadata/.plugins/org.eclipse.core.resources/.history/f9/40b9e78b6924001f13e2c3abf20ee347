@@ -1,0 +1,52 @@
+package com.grupo7.service;
+
+import java.util.List;
+import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.grupo7.model.User;
+import com.grupo7.model.enums.Permissao;
+import com.grupo7.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    // Salva um novo usuário no banco de dados
+    @Transactional
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    // Busca um usuário pelo ID
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    // Deleta um usuário pelo ID
+    @Transactional
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    // Atualiza as permissões de um usuário
+    @Transactional
+    public User updateUserPermissions(Long id, Set<Permissao> permissoes) {
+        User user = getUserById(id);
+        if (user != null) {
+            user.setListaPermissao(permissoes);
+            userRepository.save(user);
+        }
+        return user;
+    }
+
+    // Lista todos os usuários
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    // Métodos adicionais para lógica de negócios conforme necessário
+}

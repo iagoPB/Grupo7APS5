@@ -1,0 +1,6 @@
+package com.grupo7.service;
+
+@Service
+public interface UserService {
+    void registerUser(User user);
+}

@@ -1,0 +1,48 @@
+package com.grupo7.hospital.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grupo7.hospital.model.Consulta;
+import com.grupo7.hospital.model.Medico;
+import com.grupo7.hospital.model.Paciente;
+import com.grupo7.hospital.repository.ConsultaRepository;
+import com.grupo7.hospital.repository.MedicoRepository;
+import com.grupo7.hospital.repository.PacienteRepository;
+
+
+
+@Service
+public class MedicoService {
+
+    @Autowired
+    private MedicoRepository medicoRepository;
+
+    @Autowired
+    private ConsultaRepository consultaRepository;
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    public Medico save(Medico medico) {
+        return medicoRepository.save(medico);
+    }
+
+    public List<Medico> findAll() {
+        return medicoRepository.findAll();
+    }
+
+    public Medico findById(Long id) {
+        return medicoRepository.findById(id).orElse(null);
+    }
+
+    public List<Consulta> findAllConsultas() {
+        return consultaRepository.findAll();
+    }
+
+    public List<Paciente> findAllPacientes() {
+        return pacienteRepository.findAll();
+    }
+}

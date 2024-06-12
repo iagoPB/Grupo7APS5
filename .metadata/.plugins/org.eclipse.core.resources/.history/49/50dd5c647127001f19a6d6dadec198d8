@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Página Principal</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <h1>Bem-vindo</h1>
+    <div>
+        <a th:href="@{/users/new}"><button>Cadastrar User</button></a>
+    </div>
+</body>
+</html>

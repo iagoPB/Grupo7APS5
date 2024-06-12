@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Consulta</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .underline-blue {
+            border-bottom: 3px solid blue;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 underline-blue">Cadastro de Consulta</h1>
+        <form th:action="@{/consultas}" th:object="${consulta}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label for="data">Data:</label>
+                <input type="date" id="data" th:field="*{data}" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="medico">Médico:</label>
+                <select id="medico" th:field="*{medico}" class="form-control" onchange="updateEspecialidade()">
+                    <option th:each="medico : ${medicos}" th:value="${medico.id}" th:text="${medico.nome}" th:data-especialidade="${medico.especialidade}">Médico</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="especialidade">Especialidade:</label>
+                <input type="text" id="especialidade" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label for="paciente">Paciente:</label>
+                <select id="paciente" th:field="*{paciente}" class="form-control">
+                    <option th:each="paciente : ${pacientes}" th:value="${paciente.id}" th:text="${paciente.nome}">Paciente</option>
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script>
+        function updateEspecialidade() {
+            const selectMedico = document.getElementById('medico');
+            const especialidade = selectMedico.options[selectMedico.selectedIndex].getAttribute('data-especialidade');
+            document.getElementById('especialidade').value = especialidade;
+        }
+
+        // Chame updateEspecialidade ao carregar a página para definir a especialidade inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            updateEspecialidade();
+        });
+    </script>
+</body>
+</html>

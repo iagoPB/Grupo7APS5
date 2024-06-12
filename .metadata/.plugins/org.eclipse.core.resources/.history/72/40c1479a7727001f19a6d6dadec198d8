@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Médico</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Dashboard do Médico</h1>
+        <div class="mt-4">
+            <h2>Pacientes</h2>
+            <ul class="list-group">
+                <li th:each="paciente : ${pacientes}" th:text="${paciente.nome}" class="list-group-item">Paciente</li>
+            </ul>
+        </div>
+        <div class="mt-4">
+            <a th:href="@{/medicos/gerenciar-consultas}" class="btn btn-primary">Gerenciar Consultas</a>
+        </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard do Médico</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h1>Dashboard do Médico</h1>
+    <div>
+        <h2>Pacientes</h2>
+        <ul>
+            <li th:each="paciente : ${pacientes}" th:text="${paciente.nome}">Paciente</li>
+        </ul>
+    </div>
+    <div>
+        <a th:href="@{/medicos/gerenciar-consultas}"><button>Gerenciar Consultas</button></a>
+    </div>
+</body>
+</html>

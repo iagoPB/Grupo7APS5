@@ -1,0 +1,57 @@
+package com.grupo7.hospital.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.grupo7.hospital.model.Paciente;
+import com.grupo7.hospital.service.PacienteService;
+
+@Controller
+@RequestMapping("/pacientes")
+public class PacienteController {
+    @Autowired
+    private PacienteService pacienteService;
+
+    @GetMapping
+    public String listPacientes(Model model) {
+        model.addAttribute("pacientes", pacienteService.findAll().stream()
+            .toList());
+        return "paciente/list";
+    }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("paciente", new Paciente());
+        return "paciente/create";
+    }
+
+    @PostMapping("/create")
+    public String createPaciente(@ModelAttribute Paciente paciente) {
+        // paciente.getPermissoes().add(Permissao.VISUALIZAR_CONSULTAS);
+        pacienteService.save(paciente);
+        return "redirect:/pacientes";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        Paciente paciente = pacienteService.findById(id);
+        model.addAttribute("paciente", paciente);
+        return "paciente/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updatePaciente(@PathVariable("id") Long id, @ModelAttribute Paciente paciente) {
+        paciente.setId(id);
+        // paciente.getPermissoes().add(Permissao.VISUALIZAR_CONSULTAS);
+        pacienteService.save(paciente);
+        return "redirect:/pacientes";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePaciente(@PathVariable("id") Long id) {
+        pacienteService.deleteById(id);
+        return "redirect:/pacientes";
+    }
+}

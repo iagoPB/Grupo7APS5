@@ -1,0 +1,22 @@
+package com.grupo7.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grupo7.model.Prescricao;
+import com.grupo7.repository.MedicoRepository;
+import com.grupo7.repository.PrescricaoRepository;
+
+@Service
+public class MedicoService {
+
+    @Autowired
+    private MedicoRepository medicoRepository;
+
+    @Autowired
+    private PrescricaoRepository prescricaoRepository;
+
+    public Prescricao createPrescricao(Prescricao prescricao) {
+        return prescricaoRepository.save(prescricao);
+    }
+}

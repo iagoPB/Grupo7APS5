@@ -1,0 +1,11 @@
+package com.grupo7.hospital.controller;
+
+
+@Controller
+public class MainController {
+
+    @GetMapping("/")
+    public String index() {
+        return "index"; // Retorna o template "index.html"
+    }
+}

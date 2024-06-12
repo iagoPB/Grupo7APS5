@@ -1,0 +1,44 @@
+package com.grupo7.hospital.config;
+
+import java.io.IOException;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+
+import com.grupo7.hospital.service.MedicoService;
+import com.grupo7.hospital.service.PacienteService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@Component
+public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+    private final MedicoService medicoService;
+    private final PacienteService pacienteService;
+
+    public CustomAuthenticationSuccessHandler(MedicoService medicoService, PacienteService pacienteService) {
+        this.medicoService = medicoService;
+        this.pacienteService = pacienteService;
+    }
+
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws IOException, ServletException {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        if (medicoService.existsByEmail(username)) {
+            setDefaultTargetUrl("/medico/dashboard");
+        } else if (pacienteService.existsByEmail(username)) {
+            setDefaultTargetUrl("/paciente/dashboard");
+        } else {
+            setDefaultTargetUrl("/login?error");
+        }
+
+        super.onAuthenticationSuccess(request, response, authentication);
+    }
+}

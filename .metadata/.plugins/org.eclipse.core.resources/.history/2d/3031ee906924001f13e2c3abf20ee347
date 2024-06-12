@@ -1,0 +1,47 @@
+package com.grupo7.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grupo7.model.Prescricao;
+import com.grupo7.repository.PrescricaoRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PrescricaoService {
+
+    @Autowired
+    private PrescricaoRepository prescricaoRepository;
+
+    public List<Prescricao> getAllPrescricoes() {
+        return prescricaoRepository.findAll();
+    }
+
+    public Optional<Prescricao> getPrescricaoById(Long id) {
+        return prescricaoRepository.findById(id);
+    }
+
+    public Prescricao createPrescricao(Prescricao prescricao) {
+        return prescricaoRepository.save(prescricao);
+    }
+
+    public Prescricao updatePrescricao(Long id, Prescricao prescricaoDetails) {
+        Optional<Prescricao> prescricao = prescricaoRepository.findById(id);
+        if (prescricao.isPresent()) {
+            Prescricao existingPrescricao = prescricao.get();
+            existingPrescricao.setDescricao(prescricaoDetails.getDescricao());
+            existingPrescricao.setMedico(prescricaoDetails.getMedico());
+            existingPrescricao.setPaciente(prescricaoDetails.getPaciente());
+            return prescricaoRepository.save(existingPrescricao);
+        } else {
+            throw new RuntimeException("Prescricao not found with id " + id);
+        }
+    }
+
+    public void deletePrescricao(Long id) {
+        prescricaoRepository.deleteById(id);
+    }
+}
+

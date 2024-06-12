@@ -1,0 +1,45 @@
+package com.grupo7.hospital.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.grupo7.hospital.model.Medico;
+import com.grupo7.hospital.model.Paciente;
+import com.grupo7.hospital.service.ConsultaService;
+import com.grupo7.hospital.service.MedicoService;
+import com.grupo7.hospital.service.PacienteService;
+
+
+@Controller
+@RequestMapping("/pacientes")
+public class PacienteController {
+
+    @Autowired
+    private PacienteService pacienteService;
+
+    @Autowired
+    private ConsultaService consultaService;
+
+    @GetMapping("/new")
+    public String newPaciente(Model model) {
+        model.addAttribute("paciente", new Paciente());
+        return "paciente/form"; // Nome do template "form.html" em "src/main/resources/templates/paciente/"
+    }
+
+    @PostMapping
+    public String savePaciente(Paciente paciente) {
+        Paciente savedPaciente = pacienteService.save(paciente);
+        return "redirect:/pacientes/dashboard/" + savedPaciente.getId();
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model, Principal principal) {
+        String email = principal.getName();
+        Paciente paciente = pacienteService.findByEmail(email); // Supondo que a classe Paciente tenha um campo email e um método para encontrar por email
+        List<Consulta> consultas = consultaService.findByPaciente(paciente);
+        model.addAttribute("consultas", consultas);
+        return "pacientes/dashboard"; // Nome do template "dashboard.html" em "src/main/resources/templates/pacientes/"
+    }
+}

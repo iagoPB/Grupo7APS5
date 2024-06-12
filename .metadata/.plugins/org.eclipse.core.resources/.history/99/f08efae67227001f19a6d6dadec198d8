@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Paciente</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Dashboard do Paciente</h1>
+        <div class="mt-4">
+            <h2>Consultas de <span th:text="${paciente.nome}">Paciente</span></h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Médico</th>
+                        <th>Paciente</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="consulta : ${consultas}">
+                        <td th:text="${consulta.id}">ID</td>
+                        <td th:text="${#dates.format(consulta.data, 'yyyy-MM-dd')}">Data</td>
+                        <td th:text="${consulta.medico.nome}">Médico</td>
+                        <td th:text="${consulta.paciente.nome}">Paciente</td>
+                        <td>
+                            <a th:href="@{/consultas/edit/{id}(id=${consulta.id})}" class="btn btn-warning btn-sm">Editar</a>
+                            <a th:href="@{/consultas/delete/{id}(id=${consulta.id})}" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+package com.grupo7.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.grupo7.model.Consulta;
+import com.grupo7.model.User;
+import com.grupo7.service.ConsultaService;
+import com.grupo7.service.MedicoService;
+import com.grupo7.service.UserService;
+
+
+
+@Controller
+@RequestMapping("/consultas")
+public class ConsultaController {
+    @Autowired
+    private ConsultaService consultaService;
+    @Autowired
+    private MedicoService medicoService;
+
+    @GetMapping("/new")
+    public String newConsulta(Model model) {
+        model.addAttribute("consulta", new Consulta());
+        model.addAttribute("medicos", medicoService.findAll());
+        return "consultas/form";
+    }
+
+    @PostMapping
+    public String saveConsulta(Consulta consulta) {
+        consultaService.save(consulta);
+        return "redirect:/consultas/crud";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editConsulta(@PathVariable("id") Long id, Model model) {
+        Consulta consulta = consultaService.findById(id);
+        model.addAttribute("consulta", consulta);
+        model.addAttribute("medicos", medicoService.findAll());
+        return "consultas/form";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteConsulta(@PathVariable("id") Long id) {
+        consultaService.deleteById(id);
+        return "redirect:/consultas/crud";
+    }
+
+    @GetMapping("/crud")
+    public String crudConsultas(Model model) {
+        model.addAttribute("consultas", consultaService.findAll());
+        return "consultas/crud";
+    }
+}

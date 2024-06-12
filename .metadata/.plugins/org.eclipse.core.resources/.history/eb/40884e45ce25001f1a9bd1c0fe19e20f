@@ -1,0 +1,30 @@
+package com.grupo7.controller;
+
+import com.grupo7.model.Paciente;
+import com.grupo7.service.PacienteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/pacientes")
+public class PacienteController {
+
+    @Autowired
+    private PacienteService pacienteService;
+
+    @GetMapping("/new")
+    public String newPaciente(Model model) {
+        model.addAttribute("paciente", new Paciente());
+        return "pacientes/form"; // Nome do template "form.html" em "src/main/resources/templates/pacientes/"
+    }
+
+    @PostMapping
+    public String savePaciente(Paciente paciente) {
+        pacienteService.save(paciente);
+        return "redirect:/"; // Redireciona para a página inicial após salvar
+    }
+}

@@ -1,0 +1,8 @@
+package com.grupo7.hospital.repository;
+
+import com.grupo7.hospital.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
+}

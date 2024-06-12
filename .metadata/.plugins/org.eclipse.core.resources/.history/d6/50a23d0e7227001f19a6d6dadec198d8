@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gerenciar Consultas</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <h1>Gerenciar Consultas</h1>
+    <div>
+        <a th:href="@{/consultas/new}"><button>Criar Consulta</button></a>
+        <a th:href="@{/consultas/list}"><button>Listar Consultas</button></a>
+        <a th:href="@{/consultas/edit}"><button>Editar Consulta</button></a>
+        <a th:href="@{/consultas/delete}"><button>Excluir Consulta</button></a>
+    </div>
+</body>
+</html>

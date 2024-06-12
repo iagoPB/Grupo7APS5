@@ -1,0 +1,11 @@
+package com.grupo7.service;
+
+import org.springframework.stereotype.Service;
+
+import com.grupo7.model.User;
+
+@Service
+public interface UserService {
+    void registerUser(User user);
+    List<User> findAll();
+}

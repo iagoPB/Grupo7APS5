@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Cadastro de Usuário</h1>
+        <form th:action="@{/users}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" th:field="*{email}" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" th:field="*{password}" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="role">Tipo de Usuário:</label>
+                <select id="role" class="form-control" onchange="toggleFields()">
+                    <option value="">Selecione</option>
+                    <option value="medico">Médico</option>
+                    <option value="paciente">Paciente</option>
+                </select>
+            </div>
+            <div id="medicoFields" class="hidden">
+                <div class="form-group">
+                    <label for="nomeMedico">Nome:</label>
+                    <input type="text" id="nomeMedico" name="nomeMedico" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="idadeMedico">Idade:</label>
+                    <input type="number" id="idadeMedico" name="idadeMedico" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="especialidade">Especialidade:</label>
+                    <input type="text" id="especialidade" name="especialidade" class="form-control" />
+                </div>
+            </div>
+            <div id="pacienteFields" class="hidden">
+                <div class="form-group">
+                    <label for="nomePaciente">Nome:</label>
+                    <input type="text" id="nomePaciente" name="nomePaciente" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="idadePaciente">Idade:</label>
+                    <input type="number" id="idadePaciente" name="idadePaciente" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script>
+        function toggleFields() {
+            var role = document.getElementById("role").value;
+            var medicoFields = document.getElementById("medicoFields");
+            var pacienteFields = document.getElementById("pacienteFields");
+
+            if (role === "medico") {
+                medicoFields.classList.remove("hidden");
+                pacienteFields.classList.add("hidden");
+            } else if (role === "paciente") {
+                pacienteFields.classList.remove("hidden");
+                medicoFields.classList.add("hidden");
+            } else {
+                medicoFields.classList.add("hidden");
+                pacienteFields.classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+</html>

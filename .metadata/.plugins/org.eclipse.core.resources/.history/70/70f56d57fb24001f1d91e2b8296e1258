@@ -1,0 +1,59 @@
+package com.grupo7.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.grupo7.model.User;
+import com.grupo7.service.UserService;
+import com.grupo7.model.enums.Permissao;
+
+@Controller
+@RequestMapping("/pacientes")
+public class PacienteController {
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+    public String listPacientes(Model model) {
+        model.addAttribute("pacientes", userService.findAll().stream()
+            .filter(user -> user.getPermissoes().contains(Permissao.VISUALIZAR_CONSULTAS))
+            .toList());
+        return "paciente/list";
+    }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("paciente", new User());
+        return "paciente/create";
+    }
+
+    @PostMapping("/create")
+    public String createPaciente(@ModelAttribute User paciente) {
+        paciente.getPermissoes().add(Permissao.VISUALIZAR_CONSULTAS);
+        userService.save(paciente);
+        return "redirect:/pacientes";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        User paciente = userService.findById(id).orElse(null);
+        model.addAttribute("paciente", paciente);
+        return "paciente/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updatePaciente(@PathVariable("id") Long id, @ModelAttribute User paciente) {
+        paciente.setId(id);
+        paciente.getPermissoes().add(Permissao.VISUALIZAR_CONSULTAS);
+        userService.save(paciente);
+        return "redirect:/pacientes";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePaciente(@PathVariable("id") Long id) {
+        userService.deleteById(id);
+        return "redirect:/pacientes";
+    }
+}

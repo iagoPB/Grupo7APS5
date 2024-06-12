@@ -1,0 +1,110 @@
+package com.grupo7.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import com.grupo7.model.Consulta;
+import com.grupo7.model.User;
+import com.grupo7.model.enums.Permissao;
+import com.grupo7.service.ConsultaService;
+import com.grupo7.service.UserService;
+import java.util.List;
+
+@Controller
+@RequestMapping("/consultas")
+public class ConsultaController {
+    @Autowired
+    private ConsultaService consultaService;
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+    public String listConsultas(Model model, @RequestParam Long userId) {
+        User loggedUser = userService.findById(userId).orElse(null);
+        if (loggedUser == null || !isMedico(loggedUser)) {
+            return "redirect:/access-denied";
+        }
+
+        model.addAttribute("consultas", consultaService.findAll());
+        return "consulta/list";
+    }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model, @RequestParam Long userId) {
+        User loggedUser = userService.findById(userId).orElse(null);
+        if (loggedUser == null || !isMedico(loggedUser)) {
+            return "redirect:/access-denied";
+        }
+
+        model.addAttribute("consulta", new Consulta());
+        return "consulta/create";
+    }
+
+    @PostMapping("/create")
+    public String createConsulta(@ModelAttribute Consulta consulta, @RequestParam Long userId) {
+        User loggedUser = userService.findById(userId).orElse(null);
+        if (loggedUser == null || !isMedico(loggedUser)) {
+            return "redirect:/access-denied";
+        }
+
+        consulta.setMedico(loggedUser);
+        consultaService.save(consulta);
+        return "redirect:/consultas?userId=" + userId;
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model, @RequestParam Long userId) {
+        User loggedUser = userService.findById(userId).orElse(null);
+        if (loggedUser == null || !isMedico(loggedUser)) {
+            return "redirect:/access-denied";
+        }
+
+        Consulta consulta = consultaService.findById(id);
+        model.addAttribute("consulta", consulta);
+        return "consulta/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateConsulta(@PathVariable("id") Long id, @ModelAttribute Consulta consulta, @RequestParam Long userId) {
+        User loggedUser = userService.findById(userId).orElse(null);
+        if (loggedUser == null || !isMedico(loggedUser)) {
+            return "redirect:/access-denied";
+        }
+
+        consulta.setId(id);
+        consultaService.save(consulta);
+        return "redirect:/consultas?userId=" + userId;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteConsulta(@PathVariable("id") Long id, @RequestParam Long userId) {
+        User loggedUser = userService.findById(userId).orElse(null);
+        if (loggedUser == null || !isMedico(loggedUser)) {
+            return "redirect:/access-denied";
+        }
+
+        consultaService.deleteById(id);
+        return "redirect:/consultas?userId=" + userId;
+    }
+
+    @GetMapping("/paciente")
+    public String listConsultasPaciente(Model model, @RequestParam Long userId) {
+        User loggedUser = userService.findById(userId).orElse(null);
+        if (loggedUser == null || !isPaciente(loggedUser)) {
+            return "redirect:/access-denied";
+        }
+
+        List<Consulta> consultas = consultaService.findByPaciente(loggedUser);
+        model.addAttribute("consultas", consultas);
+        return "consulta/list-paciente";
+    }
+
+    private boolean isMedico(User user) {
+        return user.getPermissoes().contains(Permissao.GERENCIAR_CONSULTAS);
+    }
+
+    private boolean isPaciente(User user) {
+        return user.getPermissoes().contains(Permissao.VISUALIZAR_CONSULTAS);
+    }
+}

@@ -1,0 +1,25 @@
+package com.grupo7.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.grupo7.model.Consulta;
+import com.grupo7.service.PacienteService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/pacientes")
+public class PacienteController {
+
+    @Autowired
+    private PacienteService pacienteService;
+
+    @GetMapping("/{id}/consultas")
+    public ResponseEntity<List<Consulta>> getConsultasByPaciente(@PathVariable Long id) {
+        List<Consulta> consultas = pacienteService.getConsultasByPaciente(id);
+        return ResponseEntity.ok(consultas);
+    }
+}
+

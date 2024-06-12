@@ -1,0 +1,31 @@
+package com.grupo7.hospital.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grupo7.hospital.model.Medico;
+import com.grupo7.hospital.model.Paciente;
+
+@Service
+public class LoginService {
+
+    @Autowired
+    private MedicoService medicoService;
+
+    @Autowired
+    private PacienteService pacienteService;
+
+    public String getDashboardForUser(String email) {
+        Medico medico = medicoService.findByEmail(email);
+        if (medico != null) {
+            return "medico/dashboard";
+        }
+
+        Paciente paciente = pacienteService.findByEmail(email);
+        if (paciente != null) {
+            return "paciente/dashboard";
+        }
+
+        return "login";
+    }
+}

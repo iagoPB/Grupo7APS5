@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de User</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <h1>Cadastro de User</h1>
+    <form th:action="@{/users}" th:object="${user}" method="post">
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" th:field="*{email}" />
+        </div>
+        <div>
+            <label for="hashSenha">Senha:</label>
+            <input type="password" id="hashSenha" th:field="*{hashSenha}" />
+        </div>
+        <div>
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
+</body>
+</html>

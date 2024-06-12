@@ -1,0 +1,9 @@
+package com.grupo7.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.grupo7.model.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
+}

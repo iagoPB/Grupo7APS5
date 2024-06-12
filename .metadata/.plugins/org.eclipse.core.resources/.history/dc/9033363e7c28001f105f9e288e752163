@@ -1,0 +1,66 @@
+package com.grupo7.hospital.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.service.UserService;
+
+@Controller
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/new")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "users/CadastroUsuario";
+    }
+
+    @PostMapping
+    public String saveUser(@ModelAttribute User user,
+                           @RequestParam String role) {
+        user.setRole(role);
+        userService.save(user);
+
+        return "redirect:/users/gerenciar";
+    }
+
+    @GetMapping("/list")
+    public String listUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "users/ListarUsuarios";
+    }
+
+    @GetMapping("/gerenciar")
+    public String manageUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "users/GerenciarUsuarios";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+
+        User user = userService.findByEmail(currentUserName);
+
+        if (user != null) {
+            if ("MEDICO".equals(user.getRole())) {
+                return "medico/dashboard";
+            } else if ("PACIENTE".equals(user.getRole())) {
+                return "paciente/dashboard";
+            } else if ("ADMIN".equals(user.getRole())) {
+                return "users/GerenciarUsuarios";
+            }
+        }
+
+        return "redirect:/login";
+    }
+}

@@ -1,0 +1,13 @@
+package com.grupo7.service;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public void registerUser(User user) {
+        userRepository.save(user);
+    }
+}

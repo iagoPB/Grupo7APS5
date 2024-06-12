@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Médico</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .underline-blue {
+            border-bottom: 3px solid blue;
+            display: inline-block;
+        }
+        .greeting {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <h1 class="underline-blue">Dashboard do Médico</h1>
+            <span class="greeting">Bem-vindo!</span>
+        </div>
+        <div class="mt-4">
+            <h2>Pacientes</h2>
+            <ul class="list-group">
+                <li th:each="paciente : ${pacientes}" th:text="${paciente.nome}" class="list-group-item">Paciente</li>
+            </ul>
+        </div>
+        <div class="mt-4">
+            <a th:href="@{/medicos/gerenciar-consultas}" class="btn btn-primary">Gerenciar Consultas</a>
+        </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
