@@ -1,16 +1,15 @@
 package com.grupo7.hospital.repository;
 
+import com.grupo7.hospital.model.Consulta;
+import com.grupo7.hospital.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.grupo7.hospital.model.Consulta;
-import com.grupo7.hospital.model.Medico;
-import com.grupo7.hospital.model.Paciente;
+@Repository
+public interface ConsultaRepository extends JpaRepository<Consulta, Integer> {
+    List<Consulta> findByPaciente(User paciente);
 
-public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
-    List<Consulta> findByNomePaciente(String nomePaciente);
-    List<Consulta> findByPacienteId(Long pacienteId);
-    List<Consulta> findByMedico(Medico medico);
-    List<Consulta> findByPaciente(Paciente paciente);
-    
+    List<Consulta> findByMedico(User medico);
 }

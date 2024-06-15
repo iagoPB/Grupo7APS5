@@ -1,0 +1,63 @@
+package com.grupo7.hospital.model;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+public class Consulta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private Date data;
+    private String descricao;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "paciente_user_id", referencedColumnName = "id")
+    private User paciente;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "medico_user_id", referencedColumnName = "id")
+    private User medico;
+
+    // getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public User getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(User paciente) {
+        this.paciente = paciente;
+    }
+
+    public User getMedico() {
+        return medico;
+    }
+
+    public void setMedico(User medico) {
+        this.medico = medico;
+    }
+}

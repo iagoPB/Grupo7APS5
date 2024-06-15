@@ -1,0 +1,43 @@
+package com.grupo7.hospital.config;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.service.UserService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@Component
+public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+    @Autowired
+    private UserService userService;
+
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = userService.findByEmail(userDetails.getUsername());
+
+        if (user != null) {
+            if ("MEDICO".equals(user.getRole())) {
+                response.sendRedirect("/medico/dashboard");
+            } else if ("PACIENTE".equals(user.getRole())) {
+                response.sendRedirect("/paciente/dashboard");
+            } else if ("ADMIN".equals(user.getRole())) {
+                response.sendRedirect("/users/gerenciar");
+            } else {
+                response.sendRedirect("/login?error=true");
+            }
+        } else {
+            response.sendRedirect("/login?error=true");
+        }
+    }
+}

@@ -1,0 +1,84 @@
+package com.grupo7.hospital.service;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.grupo7.hospital.DTO.UserRegisteredDTO;
+import com.grupo7.hospital.model.Perfil;
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.repository.PerfilRepository;
+import com.grupo7.hospital.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService{
+   @Autowired
+	private UserRepository userRepo;
+   @Autowired
+    private PerfilRepository perfilRepo;
+   
+   
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
+	
+	
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	
+		User user = userRepo.findByEmail(email);
+		if(user == null) {
+			throw new UsernameNotFoundException("Nome ou senha inválidos.");
+		}
+		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getPerfil()));		
+	}
+	
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Perfil> perfis){
+		return perfis.stream().map(perfil -> new SimpleGrantedAuthority(perfil.getPerfil())).collect(Collectors.toList());
+	}
+
+	@Override
+	public User save(UserRegisteredDTO userRegisteredDTO) {
+		Perfil perfil = new Perfil();
+		if(userRegisteredDTO.getPerfil().equals("PACIENTE"))
+		  perfil = perfilRepo.findByPerfil("PACIENTE");
+		else if(userRegisteredDTO.getPerfil().equals("MÉDICO"))
+			 perfil = perfilRepo.findByPerfil("MÉDICO");
+		else if(userRegisteredDTO.getPerfil().equals("ADMIN"))
+		 perfil = perfilRepo.findByPerfil("ADMIN");
+		User user = new User();
+		user.setEmail(userRegisteredDTO.getEmail_id());
+		user.setName(userRegisteredDTO.getName());
+		user.setPassword(passwordEncoder.encode(userRegisteredDTO.getPassword()));
+		user.setPerfil(perfil);
+		
+
+        if ("MÉDICO".equals(userRegisteredDTO.getPerfil())) {
+            user.setEspecialidade(userRegisteredDTO.getEspecialidade());
+        }
+
+		
+		
+		return userRepo.save(user);
+	}
+	
+    @Override
+    public User findById(int id) {
+        return userRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<User> findUsersByPerfil(String perfil) {
+        return userRepo.findUsersByPerfil(perfil);
+    }
+	
+}

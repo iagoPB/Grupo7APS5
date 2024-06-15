@@ -1,0 +1,43 @@
+package com.grupo7.hospital.config;
+
+import java.io.IOException;
+import java.util.Collection;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Component
+public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomAuthenticationSuccessHandler.class);
+
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws IOException, ServletException {
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            logger.info("User authority: " + authority.getAuthority());
+            if (authority.getAuthority().equals("ADMIN")) {
+                response.sendRedirect("/users/gerenciar");
+                return;
+            } else if (authority.getAuthority().equals("MEDICO")) {
+                response.sendRedirect("/medico/dashboard");
+                return;
+            } else if (authority.getAuthority().equals("PACIENTE")) {
+                response.sendRedirect("/paciente/dashboard");
+                return;
+            }
+        }
+
+        response.sendRedirect("/default"); // Fallback URL in case no role matches
+    }
+}

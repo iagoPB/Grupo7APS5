@@ -1,0 +1,33 @@
+package com.grupo7.hospital.controller;
+
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class DashboardController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User user = userService.findByEmail(currentUserName);
+
+        if (user != null) {
+            if ("MEDICO".equals(user.getRole())) {
+                return "redirect:/medico/dashboard";
+            } else if ("PACIENTE".equals(user.getRole())) {
+                return "redirect:/paciente/dashboard";
+            }
+        }
+
+        return "redirect:/login?error=true";
+    }
+}

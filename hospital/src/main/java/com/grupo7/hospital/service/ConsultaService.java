@@ -1,46 +1,38 @@
 package com.grupo7.hospital.service;
 
-import java.util.List;
+import com.grupo7.hospital.model.Consulta;
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.repository.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.grupo7.hospital.model.Consulta;
-import com.grupo7.hospital.repository.ConsultaRepository;
+import java.util.List;
 
 @Service
 public class ConsultaService {
-
     @Autowired
     private ConsultaRepository consultaRepository;
-
-    public Consulta save(Consulta consulta) {
-        return consultaRepository.save(consulta);
-    }
-
-    public void saveOrUpdate(Consulta consulta) {
-        if (consulta.getMedico() == null || consulta.getPaciente() == null) {
-            throw new IllegalArgumentException("Consulta deve ter um médico e um paciente.");
-        }
-        consultaRepository.save(consulta);
-    }
 
     public List<Consulta> findAll() {
         return consultaRepository.findAll();
     }
 
-    public void deleteById(Long id) {
-        consultaRepository.deleteById(id);
+    public List<Consulta> findByPaciente(User paciente) {
+        return consultaRepository.findByPaciente(paciente);
     }
 
-    public Consulta findById(Long id) {
+    public List<Consulta> findByMedico(User medico) {
+        return consultaRepository.findByMedico(medico);
+    }
+
+    public Consulta save(Consulta consulta) {
+        return consultaRepository.save(consulta);
+    }
+
+    public Consulta findById(int id) {
         return consultaRepository.findById(id).orElse(null);
     }
 
-    public List<Consulta> findByNomePaciente(String nomePaciente) {
-        return consultaRepository.findByNomePaciente(nomePaciente);
-    }
-    
-    public List<Consulta> findByPacienteId(Long pacienteId) {
-        return consultaRepository.findByPacienteId(pacienteId);
+    public void deleteById(int id) {
+        consultaRepository.deleteById(id);
     }
 }

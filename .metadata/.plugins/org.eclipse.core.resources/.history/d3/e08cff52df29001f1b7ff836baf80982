@@ -1,0 +1,58 @@
+package com.grupo7.hospital.controller;
+
+import com.grupo7.hospital.model.Consulta;
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.service.ConsultaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/consultas")
+public class ConsultaController {
+    @Autowired
+    private ConsultaService consultaService;
+
+    @GetMapping
+    public List<Consulta> getAllConsultas(@RequestParam(required = false) Integer userId, @RequestParam(required = false) String role) {
+        if ("MEDICO".equals(role)) {
+            return consultaService.findAll();
+        } else if ("PACIENTE".equals(role) && userId != null) {
+            User paciente = new User();
+            paciente.setId(userId);
+            return consultaService.findByPaciente(paciente);
+        } else {
+            return List.of(); // Retorna lista vazia se as condições não forem atendidas
+        }
+    }
+
+    @GetMapping("/paciente/{pacienteId}")
+    public List<Consulta> getConsultasByPaciente(@PathVariable int pacienteId) {
+        User paciente = new User();
+        paciente.setId(pacienteId);
+        return consultaService.findByPaciente(paciente);
+    }
+
+    @GetMapping("/medico/{medicoId}")
+    public List<Consulta> getConsultasByMedico(@PathVariable int medicoId) {
+        User medico = new User();
+        medico.setId(medicoId);
+        return consultaService.findByMedico(medico);
+    }
+
+    @PostMapping
+    public Consulta createConsulta(@RequestBody Consulta consulta) {
+        return consultaService.save(consulta);
+    }
+
+    @GetMapping("/{id}")
+    public Consulta getConsultaById(@PathVariable int id) {
+        return consultaService.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteConsultaById(@PathVariable int id) {
+        consultaService.deleteById(id);
+    }
+}

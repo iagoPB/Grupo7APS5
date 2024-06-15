@@ -1,0 +1,37 @@
+package com.grupo7.hospital.config;
+
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Component
+public class DataInitializer {
+
+    private static final Logger logger = LoggerFactory.getLogger(DataInitializer.class);
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostConstruct
+    public void init() {
+        if (userRepository.findByEmail("admin@admin.com") == null) {
+            User admin = new User();
+            admin.setEmail("admin@admin.com");
+            admin.setHashSenha(passwordEncoder.encode("@@@@"));
+            admin.setRole("ADMIN");
+            userRepository.save(admin);
+            logger.info("Admin user created with email admin@admin.com and password @@@@");
+        } else {
+            logger.info("Admin user already exists");
+        }
+    }
+}

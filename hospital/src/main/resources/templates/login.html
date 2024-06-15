@@ -1,29 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+        .navbar {
+            background-color: #87CEEB; /* Azul claro */
+        }
+
+        .navbar-brand {
+            font-family: 'Roboto', sans-serif; /* Fonte Roboto */
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .login-container {
+            margin-top: 100px;
+        }
+
+        .login-form {
+            background-color: #f7f7f7;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form h1 {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-4">Login</h1>
-        <form th:action="@{/login}" method="post">
-            <div class="form-group">
-                <label for="username">Email:</label>
-                <input type="text" id="username" name="username" class="form-control" />
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Hospital</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                </ul>
             </div>
-            <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" class="form-control" />
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="container login-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="login-form">
+                    <h1>Login</h1>
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">E-mail ou Senha errados</div>
+                    </div>
+                    <form th:action="@{/login}" method="post" th:object="${user}">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" th:field="*{username}" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" id="password" class="form-control" th:field="*{password}" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <span>Novo Usuário? <a th:href="@{/CadastroUsuario}">Registre-se aqui</a></span>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary">Entrar</button>
-            </div>
-            <div th:if="${param.error}" class="alert alert-danger mt-3">
-                Invalid email or password.
-            </div>
-        </form>
+        </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

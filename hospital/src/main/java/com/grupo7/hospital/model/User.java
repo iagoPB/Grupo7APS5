@@ -1,49 +1,88 @@
 package com.grupo7.hospital.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String email;
-    private String hashSenha;
-    private String role;
 
-    // Getters e Setters
-    public Long getId() {
-        return id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
+	private String name;
+	
+	private String email;
+	
+	private String password;
+	
+	private String especialidade;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "users_perfil", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "perfil_id", referencedColumnName = "id") )
+	Set<Perfil> perfis = new HashSet<Perfil>();
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Set<Perfil> getPerfil() {
+		return perfis;
+	}
+
+	public void setPerfil(Perfil role) {
+		this.perfis.add(role);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getEspecialidade() {
+        return especialidade;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getHashSenha() {
-        return hashSenha;
-    }
-
-    public void setHashSenha(String hashSenha) {
-        this.hashSenha = hashSenha;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+	
+	
+	
 }

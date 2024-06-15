@@ -1,0 +1,20 @@
+@Component
+public class DataInitializer {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostConstruct
+    public void init() {
+        if (userService.findByEmail("admin@admin.com") == null) {
+            User admin = new User();
+            admin.setEmail("admin@admin.com");
+            admin.setHashSenha(passwordEncoder.encode("0000"));
+            admin.setRole("ROLE_ADMIN");
+            userService.save(admin);
+        }
+    }
+}

@@ -1,0 +1,47 @@
+package com.grupo7.hospital.service;
+
+import com.grupo7.hospital.model.Consulta;
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.repository.ConsultaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ConsultaService {
+    @Autowired
+    private ConsultaRepository consultaRepository;
+    
+    // Método para encontrar todas as consultas (para médicos)
+    public List<Consulta> findAll() {
+        return consultaRepository.findAll();
+    }
+
+    // Método para encontrar consultas por paciente
+    public List<Consulta> findByPaciente(User paciente) {
+        return consultaRepository.findByPaciente(paciente);
+    }
+
+    // Método para encontrar consultas por médico
+    public List<Consulta> findByMedico(User medico) {
+        return consultaRepository.findByMedico(medico);
+    }
+
+    // Método para salvar uma consulta (CRUD para médicos)
+    public Consulta save(Consulta consulta) {
+        return consultaRepository.save(consulta);
+    }
+
+    // Método para encontrar uma consulta por ID
+    public Consulta findById(int id) {
+        return consultaRepository.findById(id).orElse(null);
+    }
+
+    // Método para deletar uma consulta por ID (CRUD para médicos)
+    public void deleteById(int id) {
+        consultaRepository.deleteById(id);
+    }
+    
+    
+}

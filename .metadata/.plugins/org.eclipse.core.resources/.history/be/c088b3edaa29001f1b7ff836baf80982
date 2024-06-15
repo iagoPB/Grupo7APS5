@@ -1,0 +1,27 @@
+package com.grupo7.hospital.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.model.Medico;
+import com.grupo7.hospital.model.Paciente;
+import com.grupo7.hospital.service.UserService;
+import com.grupo7.hospital.service.MedicoService;
+import com.grupo7.hospital.service.PacienteService;
+
+@Controller
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/gerenciar")
+    public String manageUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "users/GerenciarUsuarios";
+    }
+}

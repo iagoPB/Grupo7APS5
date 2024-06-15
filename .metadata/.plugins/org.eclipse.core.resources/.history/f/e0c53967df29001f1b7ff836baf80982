@@ -1,0 +1,64 @@
+package com.grupo7.hospital.controller;
+
+import com.grupo7.hospital.model.Consulta;
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.service.ConsultaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/consultas")
+public class ConsultaController {
+    @Autowired
+    private ConsultaService consultaService;
+
+    @GetMapping
+    public String getAllConsultas(Model model, @RequestParam(required = false) Integer userId, @RequestParam(required = false) String role) {
+        if ("MEDICO".equals(role)) {
+            model.addAttribute("consultas", consultaService.findAll());
+        } else if ("PACIENTE".equals(role) && userId != null) {
+            User paciente = new User();
+            paciente.setId(userId);
+            model.addAttribute("consultas", consultaService.findByPaciente(paciente));
+        } else {
+            model.addAttribute("consultas", List.of());
+        }
+        return "listConsultas";
+    }
+
+    @GetMapping("/new")
+    public String showCreateForm(Model model) {
+        model.addAttribute("consulta", new Consulta());
+        return "createConsulta";
+    }
+
+    @PostMapping("/new")
+    public String createConsulta(@ModelAttribute Consulta consulta) {
+        consultaService.save(consulta);
+        return "redirect:/consultas";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") int id, Model model) {
+        Consulta consulta = consultaService.findById(id);
+        model.addAttribute("consulta", consulta);
+        return "editConsulta";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editConsulta(@PathVariable("id") int id, @ModelAttribute Consulta consulta) {
+        consulta.setId(id);
+        consultaService.save(consulta);
+        return "redirect:/consultas";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteConsulta(@PathVariable("id") int id) {
+        consultaService.deleteById(id);
+        return "redirect:/consultas";
+    }
+}

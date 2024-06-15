@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Consultas</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Lista de Consultas</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="consulta : ${consultas}">
+                    <td th:text="${consulta.id}">1</td>
+                    <td th:text="${consulta.data}">2024-06-14</td>
+                    <td th:text="${consulta.descricao}">Descrição</td>
+                    <td>
+                        <a th:href="@{/consultas/edit/{id}(id=${consulta.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/consultas/delete/{id}(id=${consulta.id})}" class="btn btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,77 +1,69 @@
 package com.grupo7.hospital.model;
 
-
-import java.util.Date;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-
-
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date data;
+    private LocalDate data;
+    
+    private String descricao;
 
-    private String nomePaciente;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "paciente_user_id", referencedColumnName = "id")
+    private User paciente;
 
-    @ManyToOne
-    private Medico medico;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "medico_user_id", referencedColumnName = "id")
+    private User medico;
 
-    @ManyToOne
-    private Paciente paciente;
-
-    // Getters e Setters
-    public Long getId() {
+    
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public String getNomePaciente() {
-        return nomePaciente;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNomePaciente(String nomePaciente) {
-        this.nomePaciente = nomePaciente;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public Medico getMedico() {
-        return medico;
-    }
-
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
-
-    public Paciente getPaciente() {
+    public User getPaciente() {
         return paciente;
     }
 
-    public void setPaciente(Paciente paciente) {
+    public void setPaciente(User paciente) {
         this.paciente = paciente;
+    }
+
+    public User getMedico() {
+        return medico;
+    }
+
+    public void setMedico(User medico) {
+        this.medico = medico;
     }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Consultas</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Gerenciar Consultas</h1>
+        <div class="mt-4 mb-4">
+            <a th:href="@{/consultas/new}" class="btn btn-primary mb-2">Criar Consulta</a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Paciente</th>
+                    <th>Médico</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="consulta : ${consultas}">
+                    <td th:text="${consulta.data}"></td>
+                    <td th:text="${consulta.descricao}"></td>
+                    <td th:text="${consulta.paciente.name}"></td>
+                    <td th:text="${consulta.medico.name}"></td>
+                    <td>
+                        <a th:href="@{/consultas/edit/{id}(id=${consulta.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/consultas/delete/{id}(id=${consulta.id})}" class="btn btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+package com.grupo7.hospital.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class LoginController {
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+	public static void main(String[] args) {
+		else if(userRegisteredDTO.getPerfil().equals("ADMIN"))
+				 perfil = perfilRepo.findByPerfil("ADMIN")
+	}
+}

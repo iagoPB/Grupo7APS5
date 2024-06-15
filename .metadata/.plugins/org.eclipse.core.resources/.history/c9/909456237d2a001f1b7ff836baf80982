@@ -1,0 +1,14 @@
+package com.grupo7.hospital.service;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+import com.grupo7.hospital.DTO.UserRegisteredDTO;
+import com.grupo7.hospital.model.User;
+
+import java.util.List;
+
+public interface UserService extends UserDetailsService {
+    User save(UserRegisteredDTO userRegisteredDTO);
+    User findById(int id);  // Adicionar método
+    List<User> findUsersByPerfil(String perfil); 
+
+}

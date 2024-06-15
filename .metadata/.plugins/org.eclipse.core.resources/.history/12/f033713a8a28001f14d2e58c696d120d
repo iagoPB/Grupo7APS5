@@ -1,0 +1,88 @@
+package com.grupo7.hospital.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.grupo7.hospital.model.User;
+import com.grupo7.hospital.model.Medico;
+import com.grupo7.hospital.model.Paciente;
+import com.grupo7.hospital.service.UserService;
+import com.grupo7.hospital.service.MedicoService;
+import com.grupo7.hospital.service.PacienteService;
+
+@Controller
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MedicoService medicoService;
+
+    @Autowired
+    private PacienteService pacienteService;
+
+    @GetMapping("/new")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "users/CadastroUsuario";
+    }
+
+    @PostMapping
+    public String saveUser(@ModelAttribute User user,
+                           @RequestParam String role,
+                           @RequestParam(required = false) String nomeMedico,
+                           @RequestParam(required = false) Integer idadeMedico,
+                           @RequestParam(required = false) String especialidade,
+                           @RequestParam(required = false) String nomePaciente,
+                           @RequestParam(required = false) Integer idadePaciente) {
+        user.setHashSenha(userService.encodePassword(user.getHashSenha()));
+        user.setRole(role);
+        User savedUser = userService.save(user);
+        
+        if ("MEDICO".equalsIgnoreCase(role)) {
+            Medico medico = new Medico();
+            medico.setNome(nomeMedico);
+            medico.setIdade(idadeMedico);
+            medico.setEspecialidade(especialidade);
+            medicoService.save(medico);
+        } else if ("PACIENTE".equalsIgnoreCase(role)) {
+            Paciente paciente = new Paciente();
+            paciente.setNome(nomePaciente);
+            paciente.setIdade(idadePaciente);
+            pacienteService.save(paciente);
+        }
+
+        return "redirect:/users/gerenciar";
+    }
+
+    @GetMapping("/list")
+    public String listUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "users/ListarUsuarios";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editUser(@PathVariable Long id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "users/EditarUsuarios";
+    }
+
+    @PostMapping("/update")
+    public String updateUser(@ModelAttribute User user,
+                             @RequestParam String role) {
+        user.setRole(role);
+        userService.save(user);
+        return "redirect:/users/gerenciar";
+    }
+
+    @GetMapping("/gerenciar")
+    public String manageUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "users/GerenciarUsuarios";
+    }
+}

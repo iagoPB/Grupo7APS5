@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Consultas</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Gerenciar Consultas</h1>
+        <div class="mt-4">
+            <a th:href="@{/consultas/new}" class="btn btn-primary mb-2">Criar Consulta</a>
+            <a th:href="@{/consultas/list}" class="btn btn-secondary mb-2">Listar Consultas</a>
+            <a th:href="@{/consultas/edit}" class="btn btn-warning mb-2">Editar Consulta</a>
+            <a th:href="@{/consultas/delete}" class="btn btn-danger mb-2">Excluir Consulta</a>
+        </div>
+    </div>
+    <h4> Hi, Welcome <span th:text ="*{userDetails}"></span> </h4></div> 
+                           <div class="col-md-3">
+                           <a th:href="@{/logout}" class="btn anchor" style="margin-left:500px"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Logout</a>
+                           </div>     
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
