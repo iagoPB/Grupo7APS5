@@ -6,16 +6,6 @@ Este é um sistema de gerenciamento hospitalar desenvolvido em Java utilizando S
 
 Certifique-se de ter o MySQL em funcionamento, e crie um database chamada 'hospital'.
 
-
-### Configuração de dados iniciais
-
-ATENÇÃO! Para que o projeto funcione corretamente, realize as seguintes querys no base de dados.
-<code>
-INSERT INTO `hospital`.`perfil` (`id`, `perfil`) VALUES (1, 'ADMIN');
-INSERT INTO `hospital`.`perfil` (`id`, `perfil`) VALUES (2, 'PACIENTE');
-INSERT INTO `hospital`.`perfil` (`id`, `perfil`) VALUES (3, 'MÉDICO');</code>
-
-
 ### Configuração do `application.properties`
 
 Edite o arquivo `src/main/resources/application.properties` para incluir as credenciais do seu banco de dados MySQL:
