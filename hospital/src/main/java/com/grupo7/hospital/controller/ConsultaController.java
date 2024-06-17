@@ -73,7 +73,7 @@ public class ConsultaController {
         Consulta consulta = consultaService.findById(id);
         model.addAttribute("consulta", consulta);
         model.addAttribute("pacientes", userService.findUsersByPerfil("PACIENTE"));
-        model.addAttribute("medicos", userService.findUsersByPerfil("MEDICO"));
+        model.addAttribute("medicos", userService.findUsersByPerfil("MÉDICO"));
         return "EditarConsulta";
     }
 

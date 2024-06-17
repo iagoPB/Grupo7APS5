@@ -1,8 +1,0 @@
-package com.grupo7.hospital.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.grupo7.hospital.model.User;
-
-public interface UserRepository extends JpaRepository<User, Long> {
-}

@@ -6814,3 +6814,55 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact antlr:antlr:j
 2024-06-15 15:45:09,522 [Worker-133: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
 2024-06-15 15:45:09,522 [Worker-133: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\AcerNitro\Desktop\Grupo7HospitalWorkbench\hospital\src\test\resources
 2024-06-15 15:45:41,256 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2024-06-16 00:01:15,695 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-06-16 00:07:42,576 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-16 00:07:42,578 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-16 00:07:42,583 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2024-06-16 00:07:42,615 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 51 resources
+2024-06-16 00:07:42,642 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-16 00:07:42,642 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-16 00:07:42,642 [Worker-22: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\AcerNitro\Desktop\Grupo7HospitalWorkbench\hospital\src\test\resources
+2024-06-16 00:10:00,533 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-16 00:10:00,533 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-16 00:10:00,541 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2024-06-16 00:10:00,577 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 51 resources
+2024-06-16 00:10:00,610 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-16 00:10:00,610 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-16 00:10:00,610 [Worker-9: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\AcerNitro\Desktop\Grupo7HospitalWorkbench\hospital\src\test\resources
+2024-06-16 00:10:22,729 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-06-16 00:30:33,506 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-06-16 00:39:44,108 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-16 00:39:44,110 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-16 00:39:44,114 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2024-06-16 00:39:44,136 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 51 resources
+2024-06-16 00:39:44,163 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-16 00:39:44,163 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-16 00:39:44,163 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\AcerNitro\Desktop\Grupo7HospitalWorkbench\hospital\src\test\resources
+2024-06-17 13:48:25,306 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-17 13:48:25,306 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-17 13:48:25,325 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2024-06-17 13:48:25,413 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 51 resources
+2024-06-17 13:48:25,450 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-17 13:48:25,450 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-17 13:48:25,450 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\AcerNitro\Desktop\Grupo7HospitalWorkbench\hospital\src\test\resources
+2024-06-17 13:49:03,455 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-17 13:49:03,455 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-17 13:49:03,462 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2024-06-17 13:49:03,489 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 51 resources
+2024-06-17 13:49:03,514 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-17 13:49:03,515 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-17 13:49:03,515 [Worker-73: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\AcerNitro\Desktop\Grupo7HospitalWorkbench\hospital\src\test\resources
+2024-06-17 13:49:14,719 [Worker-73: Launching HospitalApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-17 13:49:14,719 [Worker-73: Launching HospitalApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-17 13:49:14,728 [Worker-73: Launching HospitalApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2024-06-17 13:49:14,748 [Worker-73: Launching HospitalApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 51 resources
+2024-06-17 13:49:14,778 [Worker-73: Launching HospitalApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-17 13:49:14,779 [Worker-73: Launching HospitalApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-17 13:49:14,779 [Worker-73: Launching HospitalApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\AcerNitro\Desktop\Grupo7HospitalWorkbench\hospital\src\test\resources
+2024-06-17 13:50:25,586 [Worker-74: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-17 13:50:25,586 [Worker-74: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-17 13:50:25,592 [Worker-74: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2024-06-17 13:50:25,606 [Worker-74: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 51 resources
+2024-06-17 13:50:25,622 [Worker-74: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2024-06-17 13:50:25,622 [Worker-74: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2024-06-17 13:50:25,622 [Worker-74: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\AcerNitro\Desktop\Grupo7HospitalWorkbench\hospital\src\test\resources
